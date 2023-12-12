@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os 
+from dotenv import load_dotenv
+
+# Load environment variables from file if present
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,14 +82,14 @@ WSGI_APPLICATION = 'managementsystem.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# Django
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+#postgrey sql
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -96,7 +101,16 @@ DATABASES = {
 #     }
 # }
 
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+#         'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
+#         'USER': os.getenv('DB_USER', ''),
+#         'PASSWORD': os.getenv('DB_PASSWORD', ''),
+#         'HOST': os.getenv('DB_HOST', ''),
+#         'PORT': os.getenv('DB_PORT', ''),
+#     }
+# }
 
 
 
@@ -143,6 +157,16 @@ CACHES = {
     }
 }
 
+# CACHES = {
+#     "default": {
+#         "BACKEND": os.getenv('CACHE_BACKEND', 'django_redis.cache.RedisCache'),
+#         "LOCATION": os.getenv('CACHE_LOCATION', 'redis://127.0.0.1:6379/0'),
+#         "OPTIONS": {
+#             "CLIENT_CLASS": os.getenv('CACHE_CLIENT_CLASS', 'django_redis.client.DefaultClient'),
+#         }
+#     }
+# }
+
 
 
 # Internationalization
@@ -179,11 +203,10 @@ CHANNEL_LAYERS = {
 }
 
 #CELERY WORK
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE ='Asia/Karachi'
 CELERY_RESULT_BACKEND = 'django-db'
-
 STATIC_ROOT = '/app/staticfiles'

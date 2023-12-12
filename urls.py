@@ -21,7 +21,7 @@ urlpatterns = [
     path('emp_list/',employee_list, name='employee_list'),
     # path('delete/<int:employee_id>/', delete_employee, name='delete_employee'),
     path('perform_add/', test, name='test'),
-    # path('trigger-signal/', trigger_signal, name='trigger_signal'),
+    path('trigger-signal/', trigger_signal, name='trigger_signal'),
     path("ws/hello/", MyConsumer.as_asgi()),
     # path('accounts/login/', LoginView.as_view(), name='login'),    
     
